@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p></p>
+{% load static %}
+{% block content %}
+<div>
+<form action="{% url 'input_bank' %}" method="GET">
+        {% csrf_token %}
+    <input type="text" name="bank" placeholder="Введите название банка"><br>
+    <div class="col-0"><input style="" type="submit" value="Подтвердить" class="btn btn btn-thirdcondary"></div>
+    </form>
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+<br></br>
+<input type="button" onclick="history.back();" value="Назад">
+</body>
+</html>

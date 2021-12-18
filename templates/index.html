@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<head>
+    <title>Банковское приложение</title>
+    <meta name="viewport" content="width=device-width", initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <style>
+        body { background: url(white.png); }
+    </style>
+    <style>
+        p {
+            font-size: 20pt; /* Размер шрифта в пунктах */
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<br>
+    <div class="py-5 text-center">
+        <h2>Банковское приложение</h2>
+        <p class="lead">Пробная версия банковского приложения.</p>
+    </div>
+    <style>
+        a.button24 {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: .5em 2em;
+            outline: none;
+            border-width: 2px 0;
+            border-style: solid none;
+            border-color: #800000;
+            border-radius: 6px;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+            background: linear-gradient(#450e17, #800000) no-repeat 100% 0;
+            transition: 0.2s;
+        }
+        a.button24:hover { background: #900020; }
+        a.button24:active { background: #40000f; }
+
+    </style>
+    <form action="{% url 'new_database' %}" method="GET">
+        {% csrf_token %}
+        <div class="col-0"><input style="" type="submit" value="Загрузить базу данных" name="new_database" class="btn btn btn-secondary" onclick="update()"></div>
+    </form>
+    {% if itog == 'not' %}
+        <h1>База данных содержит отчёты за следующие даты: {{ datess }}. Новых данных после 2020.04.01 на сайте ЦБ нет. Остальные даты содержатся в полной БД </h1>
+    {% endif %}
+    <br></br>
+    <br></br>
+    <form action="{% url 'list_of_banks' %}" method="GET">
+        {% csrf_token %}
+        <div class="col-0"><input style="" type="submit" value="Показать список банков" name="list_of_banks" class="btn btn btn-secondary" onclick="update()"></div>
+    </form>
+    {% if result == 1 %}
+        <h1>База данных содержит отчёты по следующим банкам: {{ bankes }}.</h1>
+    {% endif %}
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $('#btn-check').click(function(){
+        if ($('input[name="new_report"]').is(':checked')){
+            alert('База данных актуальна!');
+        }
+        });
+        $('#btn-off').click(function() {
+            $('input[name="new_report"]').prop('checked', false);
+        }
+        );
+    </script>
+    </p>
+    <p></br>
+    </p>
+    <p class="text-center">
+    <form action="{% url 'choises' %}" method="GET">
+        {% csrf_token %}
+        <select name="choises" class="custom-select">
+            <option selected="">Выберите вид</option>
+            <option>Все банки по месяцам</option>
+            <option>Определённый банк</option>
+        </select>
+        <div class="col-0"><input style="" type="submit" value="Подтвердить" class="btn btn btn-secondary"></div>
+    </form>
+    <link rel="stylesheet" href="https://snipp.ru/cdn/bootstrap/4.3/bootstrap.min.css">
+    {% if choises == 'Все банки по месяцам'%}
+        {% include 'includes/main1.html'%}
+    {% endif %}
+    {% if choises == 'Определённый банк'%}
+        {% include 'includes/main2.html'%}
+    {% endif %}
+    </body>
+</html>

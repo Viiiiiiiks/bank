@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>График по коду показателя:{{ code }} создан</h1>
+<form action="{% url 'my_image' %}" method="GET">
+        {% csrf_token %}
+    <div class="col-0"><input style="" type="submit" value="Загрузить график" class="btn btn btn-secondary"></div>
+    </form>
+<br></br>
+<input type="button" onclick="history.back();" value="Назад">
+</body>
+</html>
